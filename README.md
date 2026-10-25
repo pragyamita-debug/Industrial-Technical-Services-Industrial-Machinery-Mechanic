@@ -10,8 +10,9 @@ on the candidate's own device. Add `?demo` to the address to open the site fille
 
 | On the page | Filled from the CV |
 | --- | --- |
+| How it works (before upload only) | fixed: upload → read in the browser → review → dashboard |
 | Hero statement, eyebrow, stats | tagline (split over two lines), role and first year, years / certifications / projects counting up |
-| "One mechanic. Complete control." | three core skills on photo cards (line taken from the CV's own bullets), remaining skills as a tool belt |
+| "Core skills. Clearly shown." | three core skills on photo cards (line taken from the CV's own bullets), remaining skills as a tool belt |
 | Experience band | roles with thumbnails — click one to open its bullets — over the plant at sunrise, with counting figures |
 | Projects | projects over a glowing blueprint that draws itself in |
 | Track record | achievements (the first figure in each counts up), certifications and training next to the glowing shield |

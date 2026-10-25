@@ -1,6 +1,6 @@
 import { useScrollSpy } from '../hooks/useScrollSpy';
 import type { StoredProfile } from '../lib/types';
-import { CallToAction, Capabilities, Experience, Footer, Hero, NAV, Projects, Record, TopBar } from './Sections';
+import { CallToAction, Capabilities, Experience, Footer, Hero, HowItWorks, NAV, Projects, Record, TopBar } from './Sections';
 import './Dashboard.css';
 
 const IDS = NAV.map((n) => n.id);
@@ -22,6 +22,7 @@ export function Dashboard({ profile, isExample, onUploadNew, onEdit, onReset, on
       <TopBar resume={resume} active={active} isExample={isExample} onUpload={onUploadNew} />
       <main>
         <Hero resume={resume} isExample={isExample} onUpload={onUploadNew} />
+        {isExample && <HowItWorks onUpload={onUploadNew} />}
         <Capabilities resume={resume} />
         <Experience resume={resume} />
         <Projects resume={resume} />

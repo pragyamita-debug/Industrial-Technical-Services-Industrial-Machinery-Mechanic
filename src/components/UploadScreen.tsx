@@ -55,10 +55,10 @@ export function UploadScreen({ busy, step, error, onFile, onSample, onDownloadSa
             <br />
             <span className="accent">Get a dashboard</span>
             <br />
-            <span className="light">built like the work.</span>
+            <span className="light">in seconds.</span>
           </h1>
           <p>
-            Candidates drop in a CV and get an industrial dashboard: capabilities, counted years, roles, projects, certifications and results.
+            Drop in a CV and it becomes an animated dashboard: skills, counted years, roles, projects, certifications and results.
             Your file is read here in the browser and never sent to a server.
           </p>
         </div>

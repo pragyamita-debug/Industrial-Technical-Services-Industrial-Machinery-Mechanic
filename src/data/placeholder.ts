@@ -7,7 +7,7 @@ import type { Resume } from '../lib/types';
 export const placeholder: Resume = {
   name: 'Your Name',
   headline: 'Your Role | Your Specialty',
-  tagline: 'Keeping machines and production lines running safely and precisely.',
+  tagline: 'Your CV, turned into a live dashboard.',
   email: 'you@example.com',
   phone: '+00 00000 00000',
   location: 'Your City, Country',
@@ -16,8 +16,8 @@ export const placeholder: Resume = {
     github: 'https://github.com/',
   },
   summary:
-    'Two or three sentences about the machines you maintain, the problems you solve and what you are looking for next. Upload a CV and this is replaced by your own profile.',
-  motto: 'Precision keeps industry moving.',
+    'Upload a CV and every section of this page is filled from it: skills, experience, projects, results and certifications, with the numbers counting up.',
+  motto: 'Your CV. Your dashboard.',
 
   experience: [
     { role: 'Your Current Role', company: 'Company Name', period: '2023 – Present', current: true, months: 0, bullets: ['What you are responsible for.', 'A result you are proud of.'] },

@@ -68,7 +68,7 @@ export function TopBar({ resume, active, isExample, onUpload }: { resume: Resume
           </button>
         ) : (
           <a className="pill pill--sm top__cta" href="#contact">
-            Start a Project <Icon name="arrowRight" size={14} />
+            Get in Touch <Icon name="arrowRight" size={14} />
           </a>
         )}
         <button className="icon-btn top__burger" aria-label="Open menu" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
@@ -131,20 +131,54 @@ export function Hero({ resume, isExample, onUpload }: { resume: Resume; isExampl
             </button>
           ) : (
             <a className="pill hero__btn" href="#capabilities">
-              Explore Capabilities <Icon name="arrowRight" size={16} />
+              View Skills <Icon name="arrowRight" size={16} />
             </a>
           )}
           <span className="hero__sep" aria-hidden />
-          <a className="text-link hero__link" href="#experience">
-            View the Work <Icon name="arrowRight" size={15} />
+          <a className="text-link hero__link" href={isExample ? '#how' : '#experience'}>
+            {isExample ? 'See how it works' : 'View Experience'} <Icon name="arrowRight" size={15} />
           </a>
         </div>
         <div className="hero__stats" ref={ref}>
-          <HeroStat value={resume.stats.years} plus={resume.stats.yearsPlus} label="Years on the tools" run={inView} delay={200} />
+          <HeroStat value={resume.stats.years} plus={resume.stats.yearsPlus} label="Years of experience" run={inView} delay={200} />
           <HeroStat value={resume.certifications.length} label="Certifications" run={inView} delay={400} />
-          <HeroStat value={resume.projects.length} plus={resume.stats.projectsPlus} label="Projects delivered" run={inView} delay={600} />
+          <HeroStat value={resume.projects.length} plus={resume.stats.projectsPlus} label="Projects" run={inView} delay={600} />
         </div>
       </div>
+    </section>
+  );
+}
+
+/* ================= how it works (shown only before a CV is uploaded) ================= */
+
+const STEPS: { icon: 'upload' | 'file' | 'edit' | 'chart'; title: string; text: string }[] = [
+  { icon: 'upload', title: 'Upload the CV', text: 'Drop in a PDF, Word or text file.' },
+  { icon: 'file', title: 'Read in the browser', text: 'Roles, skills, projects and results are found — nothing is sent to a server.' },
+  { icon: 'edit', title: 'Review and edit', text: 'Check what was found and fix anything before it goes live.' },
+  { icon: 'chart', title: 'Get the dashboard', text: 'An animated page with counted figures, built from the CV.' },
+];
+
+export function HowItWorks({ onUpload }: { onUpload: () => void }) {
+  const [ref, inView] = useInView<HTMLElement>(0.25);
+  return (
+    <section ref={ref} className={`wrap section how ${inView ? 'is-in' : ''}`} id="how" aria-label="How it works">
+      <Eyebrow>How it works</Eyebrow>
+      <h2 className="section__title">From CV to dashboard in four steps.</h2>
+      <ol className="how__steps">
+        {STEPS.map((st, i) => (
+          <li key={st.title} style={{ '--i': i } as CSSProperties}>
+            <span className="how__n">{String(i + 1).padStart(2, '0')}</span>
+            <span className="how__icon">
+              <Icon name={st.icon} size={22} />
+            </span>
+            <b>{st.title}</b>
+            <small>{st.text}</small>
+          </li>
+        ))}
+      </ol>
+      <button className="pill how__btn" onClick={onUpload}>
+        Upload a CV <Icon name="arrowRight" size={16} />
+      </button>
     </section>
   );
 }
@@ -163,7 +197,7 @@ function lineFor(skill: string, resume: Resume) {
       if (hit) return hit.replace(/\.$/, '');
     }
   }
-  return 'Applied on every shift, on every line.';
+  return 'Listed in the skills section of the CV.';
 }
 
 export function Capabilities({ resume }: { resume: Resume }) {
@@ -174,9 +208,9 @@ export function Capabilities({ resume }: { resume: Resume }) {
     <section className="wrap section" id="capabilities" aria-label="Capabilities">
       <div className="section__head">
         <div>
-          <Eyebrow>Core capabilities</Eyebrow>
-          <h2 className="section__title">One mechanic. Complete control.</h2>
-          <p className="section__lede">From diagnosis to the final test run, every job stays in safe, practised hands.</p>
+          <Eyebrow>Skills</Eyebrow>
+          <h2 className="section__title">Core skills. Clearly shown.</h2>
+          <p className="section__lede">The first three skills in the CV, each matched to a line from the candidate’s own experience.</p>
         </div>
         <p className="section__note">
           {resume.skills.length} skills
@@ -244,8 +278,8 @@ export function Experience({ resume }: { resume: Resume }) {
       <div className="wrap band__grid" ref={ref}>
         <div className="band__copy">
           <Eyebrow>Experience</Eyebrow>
-          <h2 className="section__title">A complete approach to keeping machines running.</h2>
-          <p className="section__lede">Diagnosis, repair and maintenance — on the floor, on every shift.</p>
+          <h2 className="section__title">Experience, role by role.</h2>
+          <p className="section__lede">Every position from the CV — open one to see its responsibilities and results.</p>
           <div className="band__stats">
             <p>
               <b>
@@ -302,8 +336,8 @@ export function Projects({ resume }: { resume: Resume }) {
       </div>
       <div className="blueprint__copy">
         <Eyebrow>Projects</Eyebrow>
-        <h2 className="section__title">Analysis, planning and precise execution.</h2>
-        <p className="section__lede">Accurate diagnosis — effective, lasting fixes.</p>
+        <h2 className="section__title">Projects and the work behind them.</h2>
+        <p className="section__lede">Each project from the CV, with its description and the tools used.</p>
       </div>
       <ul className="plist">
         {resume.projects.slice(0, 6).map((p, i) => (
@@ -344,7 +378,7 @@ export function Record({ resume }: { resume: Resume }) {
       <div className="record" ref={ref}>
         <div className="record__main">
           <Eyebrow>Track record</Eyebrow>
-          <h2 className="section__title">Safety, quality and results.</h2>
+          <h2 className="section__title">Results, certifications and training.</h2>
           <ul className="results">
             {resume.achievements.map((a, i) => (
               <Result key={a} text={a} run={inView} delay={i * 150} />
@@ -387,23 +421,23 @@ export function Record({ resume }: { resume: Resume }) {
 /* ================= orange call-to-action band ================= */
 
 export function CallToAction({ resume }: { resume: Resume }) {
-  const [a, b] = statement(resume.motto || 'Built to keep industry moving.');
+  const [a, b] = statement(resume.motto || 'Your CV. Your dashboard.');
   const goal = resume.goals[0];
   return (
     <section className="cta" aria-label="Work together">
       <div className="wrap cta__grid">
         <div>
-          <Eyebrow>Let’s build together</Eyebrow>
+          <Eyebrow>Next step</Eyebrow>
           <h2 className="cta__title">
             <span>{a}</span>
             {b && <span>{b}</span>}
           </h2>
-          <p className="cta__lede">{goal ? `Next: ${goal.value}${goal.note ? ` (${goal.note})` : ''}.` : 'Bring the machine, the fault or the deadline. I will find the fix.'}</p>
+          <p className="cta__lede">{goal ? `Next: ${goal.value}${goal.note ? ` (${goal.note})` : ''}.` : 'Add a motto and goals to the CV and they appear here.'}</p>
           <div className="cta__actions">
             <a className="pill pill--dark" href={resume.email ? `mailto:${resume.email}` : '#contact'}>
-              Discuss Your Project <Icon name="arrowRight" size={16} />
+              Get in Touch <Icon name="arrowRight" size={16} />
             </a>
-            <span>Response within one business day</span>
+            <span>{resume.location || 'Contact details below'}</span>
           </div>
         </div>
         <div className="cta__art" aria-hidden>
@@ -458,7 +492,7 @@ export function Footer({ resume, isExample, onUpload, onEdit, onReset, onDownloa
         </ul>
         <div className="foot__plate foot__end">
           <p>{resume.location || 'Your city'}</p>
-          <p className="eyebrow eyebrow--plain">Built here for a brighter tomorrow</p>
+          <p className="eyebrow eyebrow--plain">Dashboard generated from a CV</p>
         </div>
       </div>
       <div className="wrap foot__actions">
