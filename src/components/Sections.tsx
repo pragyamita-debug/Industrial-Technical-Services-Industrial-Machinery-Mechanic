@@ -15,6 +15,7 @@ import { useCountUp } from '../hooks/useCountUp';
 import { useInView } from '../hooks/useInView';
 import { distinctIcons, iconFor, leadNumber, splitHeadline, statement } from '../lib/mech';
 import type { Resume } from '../lib/types';
+import { GearTrain } from './GearTrain';
 import { GlowCard } from './GlowCard';
 import { Icon } from './Icon';
 import { Logo } from './Logo';
@@ -102,6 +103,8 @@ export function Hero({ resume }: { resume: Resume }) {
           <img src={gears} alt="" />
           <span className="hero__glint" />
         </div>
+        {/* real meshing gears, turning over the photo */}
+        <GearTrain />
         <span className="hero__sparks">
           {Array.from({ length: 16 }, (_, i) => (
             <i key={i} style={{ '--i': i } as CSSProperties} />

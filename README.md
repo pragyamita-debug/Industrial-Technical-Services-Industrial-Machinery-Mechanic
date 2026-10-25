@@ -21,7 +21,9 @@ that count up. To offer a "Download CV" button, put the file in `public/` and se
 
 ## Motion
 
-- A molten sunrise climbs behind the steel gears on load, a sheen slides across the metal and sparks drift up.
+- A molten sunrise climbs behind the steel on load; in front of it a train of three gunmetal gears (`GearTrain`)
+  meshes and turns — each at the correct speed for its tooth count, neighbours in opposite directions — with a
+  fixed orange rim light; scrolling drives them faster. A sheen slides across the metal and sparks drift up.
 - A second sunrise pulses over the plant in the experience band; the blueprint draws itself in and glows; the
   shield floats with a pulse ring; the steel mark turns slowly on the orange band; footer seams glow.
 - Every card carries a light travelling around its border; photos zoom on hover; numbers count up on reveal.

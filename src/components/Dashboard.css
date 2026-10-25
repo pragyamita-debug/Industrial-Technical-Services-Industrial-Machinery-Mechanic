@@ -13,8 +13,9 @@ body { background: #0b0b0c; }
 .top__inner { display: flex; align-items: center; gap: 36px; height: var(--nav); }
 .top__brand { display: inline-flex; align-items: center; gap: 12px; min-width: 0; font-size: 15px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap; }
 .top__brand span { overflow: hidden; text-overflow: ellipsis; }
-.top__brand .logo__gear { transition: transform 1.2s var(--ease-out); }
-.top__brand:hover .logo__gear { transform: rotate(90deg); }
+.top__brand .logo__gear { animation: logo-spin 12s linear infinite; }
+.top__brand:hover .logo__gear { animation-duration: 2s; }
+@keyframes logo-spin { to { transform: rotate(360deg); } }
 .top__links { display: flex; gap: 28px; margin-left: auto; }
 .top:not(.is-scrolled) .top__links a { text-shadow: 0 1px 8px rgba(0, 0, 0, 0.95), 0 0 2px rgba(0, 0, 0, 0.9); }
 .top__links a { position: relative; padding: 6px 0; color: #d7d7d3; font-size: 13px; transition: color 0.25s; }
@@ -34,8 +35,11 @@ body { background: #0b0b0c; }
 .hero__gears { position: absolute; inset: 0; mix-blend-mode: lighten; -webkit-mask: linear-gradient(90deg, transparent 0%, #000 30%), linear-gradient(180deg, #000 80%, transparent); -webkit-mask-composite: source-in; mask: linear-gradient(90deg, transparent 0%, #000 30%), linear-gradient(180deg, #000 80%, transparent); mask-composite: intersect; }
 .hero__gears img { width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 30% 40%; opacity: 0; animation: gears-in 2.4s 0.15s var(--ease-out) forwards, gears-drift 26s 2.6s ease-in-out infinite alternate; }
 @keyframes gears-in { from { opacity: 0; transform: scale(1.12) rotate(-3deg); filter: blur(10px); } to { opacity: 1; transform: none; filter: none; } }
+/* the photo steps back a little so the turning gears read in front of it */
+.hero__gears { opacity: 0.6; }
 @keyframes gears-drift { to { transform: scale(1.06) rotate(1.5deg) translate(-1%, 1%); } }
 /* a sheen of light sliding across the brushed steel */
+.geartrain { position: absolute; right: -6%; top: 14%; width: min(860px, 78%); height: auto; overflow: visible; opacity: 0; animation: gears-in 2.2s 0.5s var(--ease-out) forwards; filter: drop-shadow(0 0 40px rgba(255, 90, 31, 0.18)); }
 .hero__glint { position: absolute; inset: 0; background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.18) 48%, rgba(255, 140, 80, 0.15) 52%, transparent 60%); background-size: 260% 100%; mix-blend-mode: overlay; animation: glint 7s 3s ease-in-out infinite; }
 @keyframes glint { 0% { background-position: 120% 0; } 60%, 100% { background-position: -40% 0; } }
 /* sparks drifting up off the metal */
@@ -225,7 +229,7 @@ body { background: #0b0b0c; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero__sun, .hero__gears img, .hero__glint, .hero__sparks i, .hero__title span, .hero__copy .eyebrow, .hero__lede, .hero__actions, .hero__stats, .band__plant, .band__sun, .blueprint__art img, .shield img, .shield__pulse, .cta::before, .cta__art img, .foot__plate::after, .cap__num i { animation: none !important; opacity: 1; transform: none; }
+  .hero__sun, .hero__gears img, .geartrain, .top__brand .logo__gear, .hero__glint, .hero__sparks i, .hero__title span, .hero__copy .eyebrow, .hero__lede, .hero__actions, .hero__stats, .band__plant, .band__sun, .blueprint__art img, .shield img, .shield__pulse, .cta::before, .cta__art img, .foot__plate::after, .cap__num i { animation: none !important; opacity: 1; transform: none; }
   .hero__sparks { display: none; }
   .plist li, .blueprint__art, .blueprint__art img { transition: none; opacity: 1; transform: none; -webkit-mask: none; mask: none; }
 }
