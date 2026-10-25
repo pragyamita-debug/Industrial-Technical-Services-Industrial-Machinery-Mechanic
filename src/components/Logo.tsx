@@ -1,4 +1,4 @@
-/** A gear tooth inside a square — the mark in the top bar and on the upload screen. */
+/** A gear tooth inside a square — the mark in the top bar. */
 export function Logo({ size = 26 }: { size?: number }) {
   return (
     <svg className="logo" width={size} height={size} viewBox="0 0 32 32" aria-hidden>

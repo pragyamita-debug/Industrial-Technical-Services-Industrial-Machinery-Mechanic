@@ -39,7 +39,7 @@ export const NAV = [
   { id: 'record', label: 'Record' },
 ];
 
-export function TopBar({ resume, active, isExample, onUpload }: { resume: Resume; active: string; isExample: boolean; onUpload: () => void }) {
+export function TopBar({ resume, active }: { resume: Resume; active: string }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   useEffect(() => {
@@ -62,15 +62,9 @@ export function TopBar({ resume, active, isExample, onUpload }: { resume: Resume
             </a>
           ))}
         </nav>
-        {isExample ? (
-          <button className="pill pill--sm top__cta" onClick={onUpload}>
-            Upload CV <Icon name="arrowRight" size={14} />
-          </button>
-        ) : (
-          <a className="pill pill--sm top__cta" href="#contact">
-            Get in Touch <Icon name="arrowRight" size={14} />
-          </a>
-        )}
+        <a className="pill pill--sm top__cta" href="#contact">
+          Get in Touch <Icon name="arrowRight" size={14} />
+        </a>
         <button className="icon-btn top__burger" aria-label="Open menu" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
           <Icon name={open ? 'close' : 'menu'} size={17} />
         </button>
@@ -94,7 +88,7 @@ function HeroStat({ value, plus, label, run, delay }: { value: number; plus?: bo
   );
 }
 
-export function Hero({ resume, isExample, onUpload }: { resume: Resume; isExample: boolean; onUpload: () => void }) {
+export function Hero({ resume }: { resume: Resume }) {
   const [role, focus] = splitHeadline(resume.headline);
   const [l1, l2] = statement(resume.tagline || resume.summary || role);
   const since = firstYear(resume);
@@ -125,18 +119,12 @@ export function Hero({ resume, isExample, onUpload }: { resume: Resume; isExampl
         </h1>
         <p className="hero__lede">{focus ? `${focus}. ` : ''}{resume.summary.split(/(?<=\.)\s/)[0]}</p>
         <div className="hero__actions">
-          {isExample ? (
-            <button className="pill hero__btn" onClick={onUpload}>
-              Upload your CV <Icon name="arrowRight" size={16} />
-            </button>
-          ) : (
-            <a className="pill hero__btn" href="#capabilities">
-              View Skills <Icon name="arrowRight" size={16} />
-            </a>
-          )}
+          <a className="pill hero__btn" href="#capabilities">
+            View Skills <Icon name="arrowRight" size={16} />
+          </a>
           <span className="hero__sep" aria-hidden />
-          <a className="text-link hero__link" href={isExample ? '#how' : '#experience'}>
-            {isExample ? 'See how it works' : 'View Experience'} <Icon name="arrowRight" size={15} />
+          <a className="text-link hero__link" href="#experience">
+            View Experience <Icon name="arrowRight" size={15} />
           </a>
         </div>
         <div className="hero__stats" ref={ref}>
@@ -145,40 +133,6 @@ export function Hero({ resume, isExample, onUpload }: { resume: Resume; isExampl
           <HeroStat value={resume.projects.length} plus={resume.stats.projectsPlus} label="Projects" run={inView} delay={600} />
         </div>
       </div>
-    </section>
-  );
-}
-
-/* ================= how it works (shown only before a CV is uploaded) ================= */
-
-const STEPS: { icon: 'upload' | 'file' | 'edit' | 'chart'; title: string; text: string }[] = [
-  { icon: 'upload', title: 'Upload the CV', text: 'Drop in a PDF, Word or text file.' },
-  { icon: 'file', title: 'Read in the browser', text: 'Roles, skills, projects and results are found — nothing is sent to a server.' },
-  { icon: 'edit', title: 'Review and edit', text: 'Check what was found and fix anything before it goes live.' },
-  { icon: 'chart', title: 'Get the dashboard', text: 'An animated page with counted figures, built from the CV.' },
-];
-
-export function HowItWorks({ onUpload }: { onUpload: () => void }) {
-  const [ref, inView] = useInView<HTMLElement>(0.25);
-  return (
-    <section ref={ref} className={`wrap section how ${inView ? 'is-in' : ''}`} id="how" aria-label="How it works">
-      <Eyebrow>How it works</Eyebrow>
-      <h2 className="section__title">From CV to dashboard in four steps.</h2>
-      <ol className="how__steps">
-        {STEPS.map((st, i) => (
-          <li key={st.title} style={{ '--i': i } as CSSProperties}>
-            <span className="how__n">{String(i + 1).padStart(2, '0')}</span>
-            <span className="how__icon">
-              <Icon name={st.icon} size={22} />
-            </span>
-            <b>{st.title}</b>
-            <small>{st.text}</small>
-          </li>
-        ))}
-      </ol>
-      <button className="pill how__btn" onClick={onUpload}>
-        Upload a CV <Icon name="arrowRight" size={16} />
-      </button>
     </section>
   );
 }
@@ -197,7 +151,7 @@ function lineFor(skill: string, resume: Resume) {
       if (hit) return hit.replace(/\.$/, '');
     }
   }
-  return 'Listed in the skills section of the CV.';
+  return 'A core skill, used across every role.';
 }
 
 export function Capabilities({ resume }: { resume: Resume }) {
@@ -210,7 +164,7 @@ export function Capabilities({ resume }: { resume: Resume }) {
         <div>
           <Eyebrow>Skills</Eyebrow>
           <h2 className="section__title">Core skills. Clearly shown.</h2>
-          <p className="section__lede">The first three skills in the CV, each matched to a line from the candidate’s own experience.</p>
+          <p className="section__lede">The three core skills, each matched to a line from real experience.</p>
         </div>
         <p className="section__note">
           {resume.skills.length} skills
@@ -279,7 +233,7 @@ export function Experience({ resume }: { resume: Resume }) {
         <div className="band__copy">
           <Eyebrow>Experience</Eyebrow>
           <h2 className="section__title">Experience, role by role.</h2>
-          <p className="section__lede">Every position from the CV — open one to see its responsibilities and results.</p>
+          <p className="section__lede">Every position held — open one to see its responsibilities and results.</p>
           <div className="band__stats">
             <p>
               <b>
@@ -337,7 +291,7 @@ export function Projects({ resume }: { resume: Resume }) {
       <div className="blueprint__copy">
         <Eyebrow>Projects</Eyebrow>
         <h2 className="section__title">Projects and the work behind them.</h2>
-        <p className="section__lede">Each project from the CV, with its description and the tools used.</p>
+        <p className="section__lede">Each project with its description and the tools used.</p>
       </div>
       <ul className="plist">
         {resume.projects.slice(0, 6).map((p, i) => (
@@ -421,7 +375,7 @@ export function Record({ resume }: { resume: Resume }) {
 /* ================= orange call-to-action band ================= */
 
 export function CallToAction({ resume }: { resume: Resume }) {
-  const [a, b] = statement(resume.motto || 'Your CV. Your dashboard.');
+  const [a, b] = statement(resume.motto || 'Built to keep things moving.');
   const goal = resume.goals[0];
   return (
     <section className="cta" aria-label="Work together">
@@ -432,7 +386,7 @@ export function CallToAction({ resume }: { resume: Resume }) {
             <span>{a}</span>
             {b && <span>{b}</span>}
           </h2>
-          <p className="cta__lede">{goal ? `Next: ${goal.value}${goal.note ? ` (${goal.note})` : ''}.` : 'Add a motto and goals to the CV and they appear here.'}</p>
+          <p className="cta__lede">{goal ? `Next: ${goal.value}${goal.note ? ` (${goal.note})` : ''}.` : 'Add a motto and goals to the profile and they appear here.'}</p>
           <div className="cta__actions">
             <a className="pill pill--dark" href={resume.email ? `mailto:${resume.email}` : '#contact'}>
               Get in Touch <Icon name="arrowRight" size={16} />
@@ -450,16 +404,7 @@ export function CallToAction({ resume }: { resume: Resume }) {
 
 /* ================= steel footer ================= */
 
-interface FooterProps {
-  resume: Resume;
-  isExample: boolean;
-  onUpload: () => void;
-  onEdit: () => void;
-  onReset: () => void;
-  onDownloadCv: () => void;
-}
-
-export function Footer({ resume, isExample, onUpload, onEdit, onReset, onDownloadCv }: FooterProps) {
+export function Footer({ resume }: { resume: Resume }) {
   const web = (u: string) => (u.startsWith('http') ? u : `https://${u}`);
   return (
     <footer className="foot" id="contact">
@@ -492,32 +437,16 @@ export function Footer({ resume, isExample, onUpload, onEdit, onReset, onDownloa
         </ul>
         <div className="foot__plate foot__end">
           <p>{resume.location || 'Your city'}</p>
-          <p className="eyebrow eyebrow--plain">Dashboard generated from a CV</p>
+          <p className="eyebrow eyebrow--plain">Available for new opportunities</p>
         </div>
       </div>
-      <div className="wrap foot__actions">
-        {isExample ? (
-          <button className="pill pill--sm" onClick={onUpload}>
-            <Icon name="upload" size={15} /> Upload your CV
-          </button>
-        ) : (
-          <>
-            <button className="pill pill--line pill--sm" onClick={onEdit}>
-              <Icon name="edit" size={15} /> Edit details
-            </button>
-            <button className="pill pill--line pill--sm" onClick={onDownloadCv}>
-              <Icon name="download" size={15} /> Download CV
-            </button>
-            <button className="pill pill--line pill--sm" onClick={onUpload}>
-              <Icon name="upload" size={15} /> New CV
-            </button>
-            <button className="pill pill--line pill--sm" onClick={onReset}>
-              <Icon name="refresh" size={15} /> Example
-            </button>
-          </>
-        )}
-        <span className="foot__note">Your CV is read in your browser and stored only on this device.</span>
-      </div>
+      {resume.cvUrl && (
+        <div className="wrap foot__actions">
+          <a className="pill pill--line pill--sm" href={resume.cvUrl} download>
+            <Icon name="download" size={15} /> Download CV
+          </a>
+        </div>
+      )}
     </footer>
   );
 }

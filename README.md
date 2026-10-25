@@ -1,26 +1,23 @@
-# Industrial Machinery Mechanic CV Dashboard
+# Industrial Profile Dashboard
 
-Candidates upload a CV (PDF, DOCX or TXT) and get an animated, black-steel and molten-orange dashboard for
-industrial and technical trades — a precision-manufacturing layout with glowing industrial imagery.
+An animated, black-steel and molten-orange profile site in a precision-manufacturing style, with glowing
+industrial imagery.
 
-The CV is read **in the browser** — nothing is uploaded to a server. The parsed profile is kept in `localStorage`
-on the candidate's own device. Add `?demo` to the address to open the site filled from the fictional sample CV.
+## Edit the content
 
-## What goes where
+Everything on the page comes from **`src/data/profile.ts`**. Replace the placeholder values ("Your Name",
+"Skill One" …) and the whole site updates — no other file needs to change. The numbers in `stats` are the ones
+that count up. To offer a "Download CV" button, put the file in `public/` and set `cvUrl`.
 
-| On the page | Filled from the CV |
+| On the page | Field in `profile.ts` |
 | --- | --- |
-| How it works (before upload only) | fixed: upload → read in the browser → review → dashboard |
-| Hero statement, eyebrow, stats | tagline (split over two lines), role and first year, years / certifications / projects counting up |
-| "Core skills. Clearly shown." | three core skills on photo cards (line taken from the CV's own bullets), remaining skills as a tool belt |
-| Experience band | roles with thumbnails — click one to open its bullets — over the plant at sunrise, with counting figures |
-| Projects | projects over a glowing blueprint that draws itself in |
-| Track record | achievements (the first figure in each counts up), certifications and training next to the glowing shield |
-| Orange band | motto and next goal |
+| Hero statement, eyebrow, stats | `tagline` (split over two lines), role and first year, years / certifications / projects |
+| Core skills | first three `skills` on photo cards; the rest as a tool belt |
+| Experience band | `experience` — click a role to open its bullets |
+| Projects | `projects`, over a blueprint that draws itself in |
+| Track record | `achievements` (the first figure in each counts up), `certifications`, `education` |
+| Orange band | `motto` and the first of `goals` |
 | Steel footer | name, headline, contact details, location |
-
-Trade qualifications (associate degrees, apprenticeships, certificates, NVQ/BTEC/HND, City & Guilds) are read as
-separate education entries.
 
 ## Motion
 
@@ -35,15 +32,12 @@ separate education entries.
 ```bash
 npm install
 npm run dev          # local dev server
-npm test             # parser tests (vitest)
+npm run typecheck
 npm run build        # static build in dist/ (deployed to GitHub Pages by .github/workflows/deploy.yml)
 npm run build:single # one self-contained dist-single/index.html
-npm run build:demo   # same, but opens already filled from the sample CV (showcase)
 ```
 
-Stack: Vite, React 18, TypeScript, pdf.js and mammoth for reading files. Fonts (Space Grotesk, JetBrains Mono) are
-bundled locally. Photos are cut from the reference designs and enlarged with Real-ESRGAN.
-
-The sample CV and every name, email and company in it are fictional.
+Stack: Vite, React 18, TypeScript. Fonts (Space Grotesk, JetBrains Mono) are bundled locally. Photos are cut from
+the reference designs and enlarged with Real-ESRGAN.
 
 > GitHub Pages must be switched on once (Settings → Pages → Source: GitHub Actions) for the deploy workflow to publish.
